@@ -38,5 +38,7 @@ public class DataLoader {
         List<AggregationEntity> results = mongoTemplate.aggregate(
                 Aggregation.newAggregation(Aggregation.match(Criteria.where("id").in(ids)), Aggregation.group("data", "location")), DataEntity.class, AggregationEntity.class).getMappedResults();
         Assert.notEmpty(results, "Mapped Results Should Not be Empty.");
+        Assert.notNull(results.get(0).getData(), "Data should not be null");
+        Assert.notNull(results.get(0).getLocation(), "Location should not be null");
     }
 }
